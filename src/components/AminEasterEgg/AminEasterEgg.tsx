@@ -9,8 +9,15 @@ import {
 } from "@material-ui/core";
 import "./AminEasterEgg.css";
 
+const AMIN_TECHNIQUES = [
+  "Encore un sushi, et on recompte après.",
+  "Un maki dans chaque main, c’est ça l’équilibre alimentaire.",
+  "Si les tests passent, les sushis aussi.",
+];
+
 const AminEasterEgg = () => {
   const [open, setOpen] = useState(false);
+  const [techniqueIndex, setTechniqueIndex] = useState(0);
 
   useEffect(() => {
     let secret = "";
@@ -59,12 +66,19 @@ const AminEasterEgg = () => {
       >
         <DialogTitle id="amin-secret-title">🍣 Amin, maître du maki</DialogTitle>
         <DialogContent>
-          <DialogContentText id="amin-secret-description">
-            Technique secrète d’Amin : « Encore un sushi, et on recompte après. »
+          <DialogContentText id="amin-secret-description" aria-live="polite">
+            Technique secrète d’Amin : « {AMIN_TECHNIQUES[techniqueIndex]} »
           </DialogContentText>
           <p className="amin-secret-badge">Succès débloqué : Amin-approved ✨</p>
         </DialogContent>
-        <DialogActions>
+        <DialogActions style={{ flexWrap: "wrap" }}>
+          <Button
+            onClick={() =>
+              setTechniqueIndex(index => (index + 1) % AMIN_TECHNIQUES.length)
+            }
+          >
+            Une autre technique 🍣
+          </Button>
           <Button onClick={() => setOpen(false)} autoFocus>
             Merci, sensei !
           </Button>
